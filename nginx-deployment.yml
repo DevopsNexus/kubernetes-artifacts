@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: nginx
+    spec: # pod specification
+      volumes:
+        - name: conf
+          configMap:
+            name: nginx-conf
+            items:
+            - key: phonebook-nginx.conf
+              path: phonebook-nginx.conf
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/conf.d
+          name: conf   # must match the name of the volume, above
+

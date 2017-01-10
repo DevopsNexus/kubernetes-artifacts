@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: phonebook
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: phonebook
+    spec: # pod specification
+      containers:
+      - name: phonebook
+        image: phonebook
+        ports:
+        - containerPort: 80
