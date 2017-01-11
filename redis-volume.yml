@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  template:
+    metadata:
+      labels:
+        app: redis
+        tier: backend
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: data   # must match the name of the volume, above
+
